@@ -20,14 +20,14 @@
 -(NSError*) endTransaction;
 
 //Create request
-- (NSManagedObject *) createEntity:(EntityType)entityType;
+- (NSManagedObject *) createEntity:(Class)entityClass;
 
 //Delete request
 - (void) deleteEntity:(NSManagedObject *)event;
 
 //Fetch request
-- (NSArray *) getResultsFromEntity:(EntityType)entityType;
-- (NSArray *) getResultsFromEntity:(EntityType)entityType predicateOrNil:(NSPredicate *)predicateOrNil;
-- (NSArray *) getResultsFromEntity:(EntityType)entityType predicateOrNil:(NSPredicate *)predicateOrNil ascSortStringOrNil:(NSArray *)ascSortStringOrNil descSortStringOrNil:(NSArray *)descSortStringOrNil;
+- (NSArray *) getResultsFromEntity:(Class)entityClass;
+- (NSArray *) getResultsFromEntity:(Class)entityClass predicateOrNil:(NSPredicate *)predicateOrNil;
+- (NSArray *) getResultsFromEntity:(Class)entityClass predicateOrNil:(NSPredicate *)predicateOrNil ascSortStringOrNil:(NSArray *)ascSortStringOrNil descSortStringOrNil:(NSArray *)descSortStringOrNil;
 
 @end

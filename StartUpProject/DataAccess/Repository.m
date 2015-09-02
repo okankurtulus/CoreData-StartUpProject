@@ -12,12 +12,6 @@
 
 @synthesize managedObjectContext = _managedObjectContext;
 
-#pragma mark - Entity Name
-NSString *nameOfEntityType(EntityType entityType) {
-    NSArray *entityTypeArray = [[NSArray alloc] initWithObjects:EntityTypes];
-    return [entityTypeArray objectAtIndex:entityType];
-}
-
 #pragma mark - Access
 +(Repository*) beginTransaction; {
     NSPersistentStoreCoordinator *persistentStoreCoordinator = [[AppDelegate Instance] persistentStoreCoordinator];
@@ -40,9 +34,9 @@ NSString *nameOfEntityType(EntityType entityType) {
 }
 
 #pragma mark - Create
--(NSManagedObject *) createEntity:(EntityType)entityType
+-(NSManagedObject *) createEntity:(Class)entityClass
 {
-    NSString *entityName = nameOfEntityType(entityType);
+    NSString *entityName = NSStringFromClass(entityClass);
     NSManagedObjectContext *context = [self managedObjectContext];
     NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:entityName inManagedObjectContext:context];
     return (NSManagedObject *)newManagedObject;
@@ -57,19 +51,19 @@ NSString *nameOfEntityType(EntityType entityType) {
 
 #pragma mark - Fetch
 
-- (NSArray *) getResultsFromEntity:(EntityType)entityType
+- (NSArray *) getResultsFromEntity:(Class)entityClass
 {
-	return [self getResultsFromEntity:entityType predicateOrNil:nil];
+	return [self getResultsFromEntity:entityClass predicateOrNil:nil];
 }
 
-- (NSArray *) getResultsFromEntity:(EntityType)entityType predicateOrNil:(NSPredicate *)predicateOrNil;
+- (NSArray *) getResultsFromEntity:(Class)entityClass predicateOrNil:(NSPredicate *)predicateOrNil;
 {
-	return [self getResultsFromEntity:entityType predicateOrNil:predicateOrNil ascSortStringOrNil:nil descSortStringOrNil:nil];
+	return [self getResultsFromEntity:entityClass predicateOrNil:predicateOrNil ascSortStringOrNil:nil descSortStringOrNil:nil];
 }
 
-- (NSArray *) getResultsFromEntity:(EntityType)entityType predicateOrNil:(NSPredicate *)predicateOrNil ascSortStringOrNil:(NSArray *)ascSortStringOrNil descSortStringOrNil:(NSArray *)descSortStringOrNil
+- (NSArray *) getResultsFromEntity:(Class)entityClass predicateOrNil:(NSPredicate *)predicateOrNil ascSortStringOrNil:(NSArray *)ascSortStringOrNil descSortStringOrNil:(NSArray *)descSortStringOrNil
 {
-    NSString *entityName = nameOfEntityType(entityType);
+    NSString *entityName = NSStringFromClass(entityClass);
 	NSFetchRequest *request = [[NSFetchRequest alloc] init]; 
 	NSEntityDescription *entity = [NSEntityDescription entityForName:entityName
 											  inManagedObjectContext:[self managedObjectContext]]; 

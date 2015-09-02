@@ -13,7 +13,7 @@
 +(void) createTempItemObject {
     dispatch_async(dispatch_get_main_queue(), ^() {
         Repository *repository = [Repository beginTransaction];
-        Item *item = (Item*)[repository createEntity:Entity_Item];
+        Item *item = (Item*)[repository createEntity:[Item class]];
         item.createDate = [NSDate new];
         item.name = @"entity";
         [repository endTransaction];
@@ -24,7 +24,7 @@
 {
     dispatch_async(dispatch_get_main_queue(), ^() {
         Repository *repository = [Repository beginTransaction];
-        NSArray *items = [repository getResultsFromEntity:Entity_Item];
+        NSArray *items = [repository getResultsFromEntity:[Item class]];
         for(Item *item in items)
             NSLog(@"I'm a %@, i was created at %@", item.name, item.createDate);
         [repository endTransaction];

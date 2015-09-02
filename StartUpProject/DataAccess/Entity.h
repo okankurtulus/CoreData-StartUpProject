@@ -15,12 +15,4 @@
 //Import entity headers
 #import "Item.h"
 
-//All Entities should be listed below
-typedef enum {
-    Entity_Item,    //Item entity
-    //... add new entities here
-} EntityType;
-
-#define EntityTypes @"Item", nil
-
 #endif
